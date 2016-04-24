@@ -9,7 +9,8 @@
     "url": "http://shaozj.github.io/"
   },
   "files": [
-    "generators"
+    "generators/app",
+    "generators/page"
   ],
   "main": "generators/index.js",
   "keywords": [
