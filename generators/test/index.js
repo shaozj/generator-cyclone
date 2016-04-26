@@ -1,5 +1,7 @@
 'use strict';
 var yeoman = require('yeoman-generator');
+var chalk = require('chalk');
+var yosay = require('yosay');
 var path = require('path');
 
 var templates = require('../main/main').templates;
@@ -19,36 +21,32 @@ module.exports = yeoman.generators.Base.extend({
 
       var prompts = [
         {
-          name: 'pageName',
-          message: 'Name of Page?',
-          default: 'your page',
+          name: 'testName',
+          message: 'Name of Test?',
+          default: 'yourTest',
           warning: ''
         }
       ];
 
       this.prompt(prompts, function (props) {
-        this.pageName = props.pageName;
+        this.testName = props.testName;
         cb();
 
       }.bind(this));
     },
 
     app: function () {
-      var pageSrc = 'src/page/'+this.pageName;
+      var testSrc = 'test/'+this.testName;
 
-      this.mkdir(pageSrc);
+      this.mkdir(testSrc);
 
       this.template(
-        this.templatePath(templates+'page/index.html'),
-        this.destinationPath(pageSrc+'/index.html')
+        this.templatePath(templates+'test/index.html'),
+        this.destinationPath(testSrc+'/index.html')
       );
-      this.fs.copy(
-        this.templatePath(templates+'page/index.js'),
-        this.destinationPath(pageSrc+'/index.js')
-      );
-      this.fs.copy(
-        this.templatePath(templates+'page/index.less'),
-        this.destinationPath(pageSrc+'/index.less')
+      this.template(
+        this.templatePath(templates+'test/index.js'),
+        this.destinationPath(testSrc+'/index.js')
       );
     },
 

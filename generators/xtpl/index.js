@@ -19,35 +19,39 @@ module.exports = yeoman.generators.Base.extend({
 
       var prompts = [
         {
-          name: 'pageName',
-          message: 'Name of Page?',
-          default: 'your page',
+          name: 'moduleName',
+          message: 'Name of Module?',
+          default: 'your_module',
           warning: ''
         }
       ];
 
       this.prompt(prompts, function (props) {
-        this.pageName = props.pageName;
+        this.moduleName = props.moduleName;
         cb();
 
       }.bind(this));
     },
 
     app: function () {
-      var pageSrc = 'src/page/'+this.pageName;
+      var pageSrc = 'src/page/'+this.moduleName;
 
       this.mkdir(pageSrc);
 
       this.template(
-        this.templatePath(templates+'page/index.html'),
-        this.destinationPath(pageSrc+'/index.html')
+        this.templatePath(templates+'xtpl/index.xtpl'),
+        this.destinationPath(pageSrc+'/index.xtpl')
       );
       this.fs.copy(
-        this.templatePath(templates+'page/index.js'),
+        this.templatePath(templates+'xtpl/index.js'),
         this.destinationPath(pageSrc+'/index.js')
       );
       this.fs.copy(
-        this.templatePath(templates+'page/index.less'),
+        this.templatePath(templates+'xtpl/data.json'),
+        this.destinationPath(pageSrc+'/data.json')
+      );
+      this.template(
+        this.templatePath(templates+'xtpl/index.less'),
         this.destinationPath(pageSrc+'/index.less')
       );
     },
